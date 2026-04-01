@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<head>
+    <title>Upload Document</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .container { max-width: 500px; margin: auto; }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; }
+        .message { margin-top: 20px; color: green; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Upload Document</h2>
+
+```
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="document" required>
+    <button type="submit">Upload</button>
+</form>
+
+{% if message %}
+    <div class="message">{{ message }}</div>
+{% endif %}
+```
+
+</div>
+
+</body>
+
+
+
+
+{% endblock %}

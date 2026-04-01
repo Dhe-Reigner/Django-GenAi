@@ -25,5 +25,25 @@ vector_search = None
 
 
 # Create your views here.
-def home(requests):
-    return render(requests, 'home.html')
+def home(request):
+    return render(request, 'home.html')
+
+def upload(request):
+    message = None
+
+    if request.method =="POST":
+        file = request.FILES.get("document")
+        if file:
+            #process_document(file)  #my RAG ingestion pipeline
+            message = "Document Uploaded and Indexed!"
+    return render(request, 'upload.html',
+                  {'message':message})
+
+def ask_questions(request):
+    answer = None
+
+    if request.method == "POST":
+        question = request.POST.get("question")
+        if question:
+            answer = ask_questions(question) # my RAG query pipeline
+    return render(request, 'ask_questions.html')
