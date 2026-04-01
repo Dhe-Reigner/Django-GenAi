@@ -5,3 +5,4 @@ tiktoken
 langchain_groq
 fastembed
 python-dotenv
+PyPDF2

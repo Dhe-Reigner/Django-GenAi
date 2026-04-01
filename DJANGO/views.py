@@ -12,6 +12,7 @@ from langchain.prompts import PromptTemplate
 from langchain_groq import ChatGroq
 import os
 from dotenv import load_dotenv
+from django.http import HttpResponse
 
 load_dotenv()
 
@@ -32,12 +33,25 @@ def upload(request):
     message = None
 
     if request.method =="POST":
-        file = request.FILES.get("document")
-        if file:
+        form = PDFUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = request.FILES['pdf_file']
+            documents = []
+        # file = request.FILES.get("document")
+        # if file:
             #process_document(file)  #my RAG ingestion pipeline
-            message = "Document Uploaded and Indexed!"
-    return render(request, 'upload.html',
-                  {'message':message})
+
+    #         try:
+    #             # Load and process the PDF
+    #             pdf_reader = PdfReader(uploaded_file)
+    #             for page in pdf_reader.pages:
+    #                 text = page.extract_text()
+    #                 if text:
+    #                     doc = Document(page_content=text)
+                        
+    #        message = "Document Uploaded and Indexed!"
+    # return render(request, 'upload.html',
+    #               {'message':message})
 
 def ask_questions(request):
     answer = None
